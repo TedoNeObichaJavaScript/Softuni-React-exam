@@ -1,0 +1,277 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid #e2e0d8;
+  backdrop-filter: saturate(160%) blur(10px);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 64px;
+}
+
+/* Logo */
+
+.header-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #14201b;
+  text-decoration: none;
+}
+
+.header-logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #1e5a43;
+  color: #ffffff;
+  transition: background-color 0.15s ease;
+}
+
+.header-logo:hover .header-logo-mark {
+  background: #174634;
+}
+
+/* Links */
+
+.header-nav,
+.header-actions {
+  display: none;
+}
+
+.header-links {
+  display: flex;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #4b5650;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.header-link:hover {
+  background: #efeee7;
+  color: #1d2421;
+}
+
+.header-link.is-active {
+  color: #1e5a43;
+  font-weight: 600;
+}
+
+.header-link.is-active::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: #1e5a43;
+}
+
+/* Right side */
+
+.header-actions {
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.header-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 180px;
+  padding: 3px 12px 3px 3px;
+  border: 1px solid #e2e0d8;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1d2421;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.header-user:hover,
+.header-user.is-active {
+  border-color: #1e5a43;
+}
+
+.header-user-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #e4efe9;
+  color: #1e5a43;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.header-user-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Mobile toggle and panel */
+
+.header-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-left: auto;
+  padding: 0;
+  border: 1px solid #e2e0d8;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #1d2421;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.header-toggle:hover {
+  background: #efeee7;
+}
+
+.header-toggle[aria-expanded='true'] {
+  border-color: #1e5a43;
+  color: #1e5a43;
+}
+
+.header-mobile {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 12px 0 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e0d8;
+  box-shadow: 0 16px 32px rgba(20, 32, 27, 0.1);
+}
+
+.header-mobile[hidden] {
+  display: none;
+}
+
+.header-mobile-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.header-mobile-links .header-link {
+  display: flex;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.header-mobile-links .header-link.is-active {
+  background: #e4efe9;
+}
+
+.header-mobile-links .header-link.is-active::after {
+  display: none;
+}
+
+.header-mobile-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e0d8;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .header-mobile:not([hidden]) {
+    animation: header-menu-enter 0.18s ease-out;
+  }
+}
+
+@keyframes header-menu-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Desktop */
+
+@media (min-width: 860px) {
+  .header-inner {
+    gap: 28px;
+  }
+
+  .header-nav,
+  .header-actions {
+    display: flex;
+  }
+
+  .header-toggle,
+  .header-mobile,
+  .header-mobile[hidden] {
+    display: none;
+  }
+}
+
+/* Between tablet and wide desktop the logged in bar gets crowded, so the logout label hides. */
+@media (min-width: 860px) and (max-width: 1079px) {
+  .header-inner {
+    gap: 16px;
+  }
+
+  .header-user {
+    max-width: 130px;
+  }
+
+  .header-logout-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+}

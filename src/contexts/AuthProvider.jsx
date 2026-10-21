@@ -31,6 +31,11 @@ function isExpiringSoon(session) {
   return session.expiresAt - Date.now() < REFRESH_MARGIN_MS;
 }
 
+/* A 4xx answer means the refresh token is no longer valid. No connection, 429 and 5xx are temporary. */
+function isRejectedRefresh(error) {
+  return error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 429;
+}
+
 export default function AuthProvider({ children }) {
   const [session, setSession] = useState(readStoredSession);
   const sessionRef = useRef(session);
@@ -55,7 +60,8 @@ export default function AuthProvider({ children }) {
           applySession(nextSession);
           return nextSession;
         },
-        () => {
+        (error) => {
+          if (!isRejectedRefresh(error)) throw error;
           applySession(null);
           throw new ApiError('Your session has expired. Please log in again.', 401);
         },

@@ -1,0 +1,83 @@
+.trail-stats {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.trail-stats dd {
+  margin: 0;
+}
+
+.trail-stats-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #1e5a43;
+}
+
+/* Small: compact inline row used on cards */
+
+.trail-stats-small {
+  gap: 4px 16px;
+  font-size: 0.875rem;
+  color: #3e4843;
+}
+
+.trail-stats-small .trail-stats-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.trail-stats-small .trail-stats-value {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Large: three blocks with a label, used on the details page */
+
+.trail-stats-large {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.trail-stats-large .trail-stats-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'icon value'
+    'icon label';
+  column-gap: 12px;
+  align-items: center;
+}
+
+.trail-stats-large .trail-stats-icon {
+  grid-area: icon;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #e4efe9;
+}
+
+.trail-stats-large .trail-stats-value {
+  grid-area: value;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #14201b;
+}
+
+.trail-stats-large .trail-stats-label {
+  grid-area: label;
+  font-size: 0.85rem;
+  color: #5d6862;
+}
+
+@media (min-width: 560px) {
+  .trail-stats-large {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}

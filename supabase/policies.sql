@@ -4,7 +4,9 @@ revoke all on public.profiles, public.trails, public.comments, public.likes from
 
 grant usage on schema public to anon, authenticated;
 grant select on public.profiles, public.trails, public.comments, public.likes to anon, authenticated;
-grant insert, update, delete on public.trails to authenticated;
+grant insert, delete on public.trails to authenticated;
+grant update (title, region, difficulty, distance_km, elevation_gain_m, duration_hours, description, image_url)
+  on public.trails to authenticated;
 grant insert, delete on public.comments, public.likes to authenticated;
 
 /* Profiles are created by the signup trigger, so clients can only read them. */

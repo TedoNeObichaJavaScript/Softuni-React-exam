@@ -1,0 +1,128 @@
+.user-profile-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px 20px;
+  align-items: center;
+  margin-bottom: 48px;
+  padding: 24px 20px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(20, 32, 27, 0.06), 0 6px 20px rgba(20, 32, 27, 0.06);
+}
+
+.user-profile-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  background: #e4efe9;
+  color: #1e5a43;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.user-profile-info {
+  min-width: 0;
+}
+
+.user-profile-name-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 4px;
+}
+
+.user-profile-name {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  overflow-wrap: anywhere;
+}
+
+.user-profile-pill {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #fcefd4;
+  color: #8a5800;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.user-profile-since {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 0.9rem;
+  color: #5d6862;
+}
+
+.user-profile-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.user-profile-link:hover {
+  text-decoration: underline;
+}
+
+.user-profile-stats {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.user-profile-stat {
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #f6f5f0;
+}
+
+.user-profile-stat dt {
+  font-size: 0.85rem;
+  color: #5d6862;
+}
+
+.user-profile-stat dd {
+  margin: 0;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #14201b;
+}
+
+.user-profile-trails h2 {
+  margin-bottom: 24px;
+}
+
+@media (min-width: 720px) {
+  .user-profile-card {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 24px;
+    padding: 32px;
+  }
+
+  .user-profile-avatar {
+    width: 96px;
+    height: 96px;
+    font-size: 2.6rem;
+  }
+
+  .user-profile-stats {
+    grid-column: auto;
+    grid-template-columns: repeat(2, 140px);
+  }
+}

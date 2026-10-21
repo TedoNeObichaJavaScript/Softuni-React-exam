@@ -1,0 +1,104 @@
+/* Spinner */
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 56px 16px;
+  color: #5d6862;
+  font-size: 0.92rem;
+}
+
+.spinner-circle {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #e2e0d8;
+  border-top-color: #1e5a43;
+  border-radius: 50%;
+  animation: spinner-rotate 0.8s linear infinite;
+}
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner-circle {
+    animation-duration: 2.4s;
+  }
+}
+
+/* Error message */
+
+.error-message,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 44px 24px;
+  text-align: center;
+}
+
+.error-message-icon,
+.empty-state-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 14px;
+  border-radius: 999px;
+}
+
+.error-message-icon {
+  background: #f9e0db;
+  color: #b83a2c;
+}
+
+.error-message-title,
+.empty-state-title {
+  margin: 0 0 6px;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #14201b;
+}
+
+.error-message-text,
+.empty-state-text {
+  max-width: 44ch;
+  margin: 0 0 18px;
+  color: #5d6862;
+  font-size: 0.95rem;
+}
+
+/* Empty state */
+
+.empty-state {
+  max-width: none;
+  border: 1px dashed #d6d3c8;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.empty-state-icon {
+  background: #e4efe9;
+  color: #1e5a43;
+}
+
+.empty-state-text:last-child {
+  margin-bottom: 0;
+}
+
+.empty-state-action {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}

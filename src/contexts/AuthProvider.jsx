@@ -1,0 +1,133 @@
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { AuthContext } from './authContext';
+import { refreshSession, signIn, signOut, signUp } from '../api/auth';
+import { ApiError } from '../api/request';
+
+const STORAGE_KEY = 'trailbook.session';
+const REFRESH_MARGIN_MS = 60 * 1000;
+
+function readStoredSession() {
+  try {
+    const session = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return session?.accessToken && session?.user?.id ? session : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeStoredSession(session) {
+  try {
+    if (session) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+    } else {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  } catch {
+    /* Storage can be blocked (private mode). The session still works for this tab. */
+  }
+}
+
+function isExpiringSoon(session) {
+  return session.expiresAt - Date.now() < REFRESH_MARGIN_MS;
+}
+
+export default function AuthProvider({ children }) {
+  const [session, setSession] = useState(readStoredSession);
+  const sessionRef = useRef(session);
+  const pendingRefreshRef = useRef(null);
+
+  const syncSession = useCallback((nextSession) => {
+    sessionRef.current = nextSession;
+    setSession(nextSession);
+  }, []);
+
+  const applySession = useCallback((nextSession) => {
+    writeStoredSession(nextSession);
+    syncSession(nextSession);
+  }, [syncSession]);
+
+  const refresh = useCallback(() => {
+    if (pendingRefreshRef.current) return pendingRefreshRef.current;
+
+    const pending = refreshSession(sessionRef.current.refreshToken)
+      .then(
+        (nextSession) => {
+          applySession(nextSession);
+          return nextSession;
+        },
+        () => {
+          applySession(null);
+          throw new ApiError('Your session has expired. Please log in again.', 401);
+        },
+      )
+      .finally(() => {
+        pendingRefreshRef.current = null;
+      });
+
+    pendingRefreshRef.current = pending;
+    return pending;
+  }, [applySession]);
+
+  useEffect(() => {
+    const storedSession = sessionRef.current;
+    if (storedSession && isExpiringSoon(storedSession)) {
+      refresh().catch(() => {});
+    }
+  }, [refresh]);
+
+  useEffect(() => {
+    function handleStorage(event) {
+      if (event.key !== null && event.key !== STORAGE_KEY) return;
+      syncSession(readStoredSession());
+    }
+
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, [syncSession]);
+
+  const getAccessToken = useCallback(async () => {
+    const currentSession = sessionRef.current;
+    if (!currentSession) throw new ApiError('You need to log in first.', 401);
+    if (!isExpiringSoon(currentSession)) return currentSession.accessToken;
+
+    const nextSession = await refresh();
+    return nextSession.accessToken;
+  }, [refresh]);
+
+  const login = useCallback(async (email, password) => {
+    const nextSession = await signIn({ email, password });
+    applySession(nextSession);
+    return nextSession.user;
+  }, [applySession]);
+
+  const register = useCallback(async ({ username, email, password }) => {
+    const result = await signUp({ username, email, password });
+    if (result.session) applySession(result.session);
+    return { needsConfirmation: result.needsConfirmation || !result.session };
+  }, [applySession]);
+
+  const logout = useCallback(async () => {
+    const currentSession = sessionRef.current;
+    applySession(null);
+    if (!currentSession) return;
+
+    try {
+      await signOut(currentSession.accessToken);
+    } catch {
+      /* The local session is already gone, a failed server logout changes nothing for the user. */
+    }
+  }, [applySession]);
+
+  const user = session?.user ?? null;
+
+  const value = useMemo(() => ({
+    user,
+    isAuthenticated: Boolean(user),
+    login,
+    register,
+    logout,
+    getAccessToken,
+  }), [user, login, register, logout, getAccessToken]);
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}

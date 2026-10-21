@@ -1,0 +1,40 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 640px;
+  padding-top: 88px;
+  padding-bottom: 104px;
+  text-align: center;
+}
+
+.not-found-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #fcefd4;
+  color: #8a5800;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.not-found-title {
+  margin-bottom: 14px;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+}
+
+.not-found-text {
+  max-width: 46ch;
+  margin-bottom: 28px;
+  color: #5d6862;
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}

@@ -6,12 +6,16 @@ import About from './pages/About/About';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import NotFound from './pages/NotFound/NotFound';
+import Catalog from './pages/Catalog/Catalog';
+import TrailDetails from './pages/TrailDetails/TrailDetails';
 
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/trails" element={<Catalog />} />
+        <Route path="/trails/:trailId" element={<TrailDetails />} />
         <Route path="/about" element={<About />} />
 
         <Route element={<GuestRoute />}>

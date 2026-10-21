@@ -1,0 +1,7 @@
+.create-trail {
+  max-width: 800px;
+}
+
+.create-trail .page-header p {
+  max-width: 60ch;
+}

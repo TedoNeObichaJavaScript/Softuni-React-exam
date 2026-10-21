@@ -5,6 +5,7 @@ import { ApiError } from '../api/request';
 
 const STORAGE_KEY = 'trailbook.session';
 const REFRESH_MARGIN_MS = 60 * 1000;
+const SESSION_EXPIRED_MESSAGE = 'Your session has expired. Please log in again.';
 
 function readStoredSession() {
   try {
@@ -54,16 +55,21 @@ export default function AuthProvider({ children }) {
   const refresh = useCallback(() => {
     if (pendingRefreshRef.current) return pendingRefreshRef.current;
 
-    const pending = refreshSession(sessionRef.current.refreshToken)
+    const { refreshToken } = sessionRef.current;
+    /* The user can log out (here or in another tab) while the request runs, so check again after it. */
+    const isStillCurrent = () => sessionRef.current?.refreshToken === refreshToken;
+
+    const pending = refreshSession(refreshToken)
       .then(
         (nextSession) => {
-          applySession(nextSession);
-          return nextSession;
+          if (isStillCurrent()) applySession(nextSession);
+          if (!sessionRef.current) throw new ApiError(SESSION_EXPIRED_MESSAGE, 401);
+          return sessionRef.current;
         },
         (error) => {
           if (!isRejectedRefresh(error)) throw error;
-          applySession(null);
-          throw new ApiError('Your session has expired. Please log in again.', 401);
+          if (isStillCurrent()) applySession(null);
+          throw new ApiError(SESSION_EXPIRED_MESSAGE, 401);
         },
       )
       .finally(() => {

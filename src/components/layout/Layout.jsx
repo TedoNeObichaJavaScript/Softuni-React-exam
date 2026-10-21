@@ -1,0 +1,26 @@
+import { useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router';
+import Header from './Header';
+import Footer from './Footer';
+import './Layout.css';
+
+export default function Layout() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return (
+    <div className="layout">
+      <a className="layout-skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <Header />
+      <main className="layout-main" id="main-content">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  );
+}

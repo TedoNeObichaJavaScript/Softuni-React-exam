@@ -1,0 +1,28 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.layout-main {
+  flex: 1;
+}
+
+.layout-skip-link {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  z-index: 200;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #1e5a43;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.layout-skip-link:focus {
+  transform: translateY(0);
+}

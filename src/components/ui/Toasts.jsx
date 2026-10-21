@@ -20,7 +20,7 @@ function Toast({ toast, onDismiss }) {
   }, [id, onDismiss]);
 
   return (
-    <div className={`toast toast-${type}`} role={type === 'error' ? 'alert' : 'status'}>
+    <div className={`toast toast-${type}`} role={type === 'error' ? 'alert' : undefined}>
       <Icon className="toast-icon" size={20} strokeWidth={2} aria-hidden="true" />
       <p className="toast-message">{message}</p>
       <button
@@ -37,7 +37,8 @@ function Toast({ toast, onDismiss }) {
 
 export default function Toasts({ toasts, onDismiss }) {
   return (
-    <div className="toasts">
+    // the wrapper is always rendered so screen readers pick up new toasts
+    <div className="toasts" aria-live="polite">
       {toasts.map((toast) => (
         <Toast key={toast.id} toast={toast} onDismiss={onDismiss} />
       ))}

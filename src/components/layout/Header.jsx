@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { startTransition, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router';
 import { LogOut, Menu, MountainSnow, Plus, X } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
@@ -25,10 +25,14 @@ export default function Header() {
 
   const closeMenu = () => setIsMenuOpen(false);
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     closeMenu();
-    navigate('/');
-    await logout();
+    // Navigation runs as a transition. Clearing the session in the same one keeps
+    // private pages from redirecting to /login before the user reaches home.
+    startTransition(() => {
+      navigate('/');
+      logout();
+    });
     notify('You have been logged out.', 'info');
   };
 

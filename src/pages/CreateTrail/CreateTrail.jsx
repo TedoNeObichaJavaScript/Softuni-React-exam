@@ -20,6 +20,15 @@ export default function CreateTrail() {
     navigate(`/trails/${trail.id}`);
   }
 
+  function handleCancel() {
+    // idx is the router's history position. At 0 (bookmark, login redirect) going back leaves the site.
+    if (window.history.state?.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/trails');
+    }
+  }
+
   return (
     <div className="page">
       <div className="container create-trail">
@@ -35,7 +44,7 @@ export default function CreateTrail() {
           initialValues={EMPTY_TRAIL_VALUES}
           submitLabel="Publish trail"
           onSubmit={handleSubmit}
-          onCancel={() => navigate(-1)}
+          onCancel={handleCancel}
         />
       </div>
     </div>

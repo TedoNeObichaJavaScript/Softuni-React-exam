@@ -1,0 +1,24 @@
+.trail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trail-grid-item {
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .trail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .trail-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,140 @@
+.trail-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(20, 32, 27, 0.06), 0 6px 20px rgba(20, 32, 27, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trail-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 2px 4px rgba(20, 32, 27, 0.08), 0 14px 32px rgba(20, 32, 27, 0.12);
+}
+
+.trail-card:active {
+  transform: translateY(-1px);
+}
+
+.trail-card:focus-visible {
+  outline: 3px solid #f2a541;
+  outline-offset: 3px;
+}
+
+.trail-card-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #efeee7;
+}
+
+.trail-card-image {
+  transition: transform 0.4s ease;
+}
+
+.trail-card:hover .trail-card-image {
+  transform: scale(1.03);
+}
+
+.trail-card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.trail-card-badge .difficulty-badge {
+  box-shadow: 0 1px 3px rgba(20, 32, 27, 0.18);
+}
+
+.trail-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 20px 20px;
+}
+
+.trail-card-title {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  transition: color 0.15s ease;
+}
+
+.trail-card:hover .trail-card-title {
+  color: #1e5a43;
+}
+
+.trail-card-region {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: -4px 0 0;
+  font-size: 0.9rem;
+  color: #5d6862;
+}
+
+.trail-card-region svg {
+  flex-shrink: 0;
+  color: #8a948f;
+}
+
+.trail-card-region span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.trail-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #e2e0d8;
+  font-size: 0.85rem;
+  color: #5d6862;
+}
+
+.trail-card-author {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.trail-card-counts {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.trail-card-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail-card,
+  .trail-card-image {
+    transition: none;
+  }
+
+  .trail-card:hover,
+  .trail-card:active,
+  .trail-card:hover .trail-card-image {
+    transform: none;
+  }
+}

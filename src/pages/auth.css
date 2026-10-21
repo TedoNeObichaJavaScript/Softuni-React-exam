@@ -1,0 +1,80 @@
+/* Shared by the Login and Register pages */
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  padding-top: 48px;
+  padding-bottom: 72px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 32px 24px;
+  border: 1px solid #e2e0d8;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(20, 32, 27, 0.06), 0 6px 20px rgba(20, 32, 27, 0.06);
+}
+
+.auth-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  background: #e4efe9;
+  color: #1e5a43;
+}
+
+.auth-title {
+  margin-bottom: 6px;
+  font-size: 1.85rem;
+}
+
+.auth-subtitle {
+  margin-bottom: 24px;
+  color: #5d6862;
+  font-size: 0.95rem;
+}
+
+.auth-alert {
+  margin-bottom: 20px;
+}
+
+.auth-form {
+  margin-bottom: 20px;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px 18px;
+  font-size: 1rem;
+}
+
+.auth-switch {
+  margin: 0;
+  padding-top: 18px;
+  border-top: 1px solid #e2e0d8;
+  color: #5d6862;
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+.auth-switch a {
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+@media (min-width: 520px) {
+  .auth-page {
+    padding-top: 64px;
+  }
+
+  .auth-card {
+    padding: 40px 36px 32px;
+  }
+}

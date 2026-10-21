@@ -1,18 +1,26 @@
 import { Route, Routes } from 'react-router';
-
-function Placeholder() {
-  return (
-    <main className="container page">
-      <h1>Trailbook</h1>
-      <p>Hiking trails shared by hikers. Work in progress.</p>
-    </main>
-  );
-}
+import Layout from './components/layout/Layout';
+import GuestRoute from './components/guards/GuestRoute';
+import Home from './pages/Home/Home';
+import About from './pages/About/About';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import NotFound from './pages/NotFound/NotFound';
 
 export default function App() {
   return (
     <Routes>
-      <Route path="*" element={<Placeholder />} />
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+
+        <Route element={<GuestRoute />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Route>
     </Routes>
   );
 }

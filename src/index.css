@@ -75,7 +75,8 @@ textarea {
 }
 
 .page {
-  padding: 40px 0 72px;
+  padding-top: 40px;
+  padding-bottom: 72px;
 }
 
 .page-header {

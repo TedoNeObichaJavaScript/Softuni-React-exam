@@ -1,0 +1,19 @@
+.catalog-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+
+.catalog-header h1 {
+  margin-bottom: 8px;
+}
+
+.catalog-results {
+  transition: opacity 0.2s ease;
+}
+
+.catalog-results.is-refreshing {
+  opacity: 0.55;
+}

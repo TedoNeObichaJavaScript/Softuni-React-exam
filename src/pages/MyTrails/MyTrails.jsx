@@ -93,10 +93,6 @@ export default function MyTrails() {
             <h1>My trails</h1>
             <p>Hi, {user.username}. Here are the routes you shared and the ones you liked.</p>
           </div>
-          <Link to="/trails/new" className="btn btn-accent">
-            <Plus size={18} strokeWidth={2} aria-hidden="true" />
-            Add a trail
-          </Link>
         </header>
 
         <div className="my-trails-tabs" role="tablist" aria-label="My trails">

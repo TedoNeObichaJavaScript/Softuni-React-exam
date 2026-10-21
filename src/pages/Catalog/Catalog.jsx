@@ -158,12 +158,6 @@ export default function Catalog() {
             <h1>All trails</h1>
             <p aria-live="polite">{getSubtitle()}</p>
           </div>
-          {isAuthenticated && (
-            <Link to="/trails/new" className="btn btn-accent">
-              <Plus size={18} strokeWidth={2} aria-hidden="true" />
-              Add a trail
-            </Link>
-          )}
         </header>
 
         <TrailFilters

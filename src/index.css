@@ -237,3 +237,98 @@ textarea.input {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+/* Alert banners: <div className="alert alert-error"><Icon /><p>Text</p></div> */
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 0.93rem;
+  line-height: 1.5;
+}
+
+.alert > svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.alert p {
+  margin: 0;
+}
+
+.alert-error {
+  background: #f9e0db;
+  border-color: #f0c6bd;
+  color: #7f2a1f;
+}
+
+.alert-info {
+  background: #e4efe9;
+  border-color: #c8dccf;
+  color: #1a4a37;
+}
+
+.alert-success {
+  background: #e2f1e7;
+  border-color: #c3e0cc;
+  color: #24583a;
+}
+
+.alert-warning {
+  background: #fcefd4;
+  border-color: #f2d9a6;
+  color: #5f3d00;
+}
+
+/* Section heading row: title on the left, optional link or action on the right */
+
+.section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 20px;
+}
+
+.section-heading h2 {
+  margin: 0;
+}
+
+.section-heading-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #1e5a43;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.section-heading-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.section-heading-link svg {
+  transition: transform 0.15s ease;
+}
+
+.section-heading-link:hover svg {
+  transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-heading-link svg {
+    transition: none;
+  }
+}
+
+/* Keeps focused or anchored elements clear of the sticky header */
+html {
+  scroll-padding-top: 88px;
+}

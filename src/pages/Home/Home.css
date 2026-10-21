@@ -1,0 +1,172 @@
+.home {
+  padding-bottom: 80px;
+}
+
+/* Hero */
+
+.home-hero {
+  display: grid;
+  gap: 36px;
+  padding-top: 40px;
+  padding-bottom: 56px;
+}
+
+.home-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #e4efe9;
+  color: #1e5a43;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.home-title {
+  max-width: 15ch;
+  margin-bottom: 18px;
+  font-size: clamp(2.1rem, 6vw, 3.3rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.home-lead {
+  max-width: 46ch;
+  margin-bottom: 28px;
+  color: #5d6862;
+  font-size: 1.08rem;
+}
+
+.home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.home-hero-button {
+  padding: 13px 22px;
+  font-size: 1rem;
+}
+
+.home-hero-art {
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(20, 32, 27, 0.06), 0 6px 20px rgba(20, 32, 27, 0.06);
+}
+
+.home-hero-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 900px) {
+  .home-hero {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 56px;
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-hero-text,
+  .home-hero-art {
+    animation: home-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .home-hero-art {
+    animation-delay: 0.08s;
+  }
+}
+
+@keyframes home-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sections */
+
+.home-section + .home-section {
+  margin-top: 72px;
+}
+
+/* How it works */
+
+.home-steps {
+  display: grid;
+  gap: 24px;
+  padding: 32px 24px;
+  border-radius: 14px;
+  background: #e4efe9;
+}
+
+.home-steps-title {
+  margin: 0;
+}
+
+.home-steps-list {
+  display: grid;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.home-step-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #1e5a43;
+}
+
+.home-step-title {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+}
+
+.home-step-text {
+  margin: 0;
+  color: #4b5650;
+  font-size: 0.93rem;
+}
+
+@media (min-width: 760px) {
+  .home-steps {
+    padding: 36px 40px;
+  }
+
+  .home-steps-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .home-steps {
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+    gap: 40px;
+  }
+}

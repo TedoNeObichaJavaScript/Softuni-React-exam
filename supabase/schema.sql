@@ -39,7 +39,7 @@ create table if not exists public.trails (
   duration_hours numeric(4, 1) not null check (duration_hours > 0 and duration_hours <= 72),
   description text not null check (char_length(trim(description)) between 20 and 2000),
   image_url text check (
-    image_url is null or (image_url ~* '^https?://' and char_length(image_url) <= 500)
+    image_url is null or (image_url ~* '^(https?://|/images/)' and char_length(image_url) <= 500)
   ),
   owner_id uuid not null default auth.uid(),
   created_at timestamptz not null default now(),

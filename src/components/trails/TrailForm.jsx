@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { CircleAlert } from 'lucide-react';
 import TrailImage from './TrailImage';
 import { DESCRIPTION_MAX_LENGTH, DIFFICULTIES, REGIONS } from '../../utils/constants';
-import { isValidUrl, validateTrail } from '../../utils/validators';
+import { isValidImageUrl, validateTrail } from '../../utils/validators';
 import './TrailForm.css';
 
 const FIELD_ORDER = [
@@ -38,7 +38,7 @@ export default function TrailForm({ initialValues, submitLabel, onSubmit, onCanc
 
   const errors = validateTrail(values);
   const imageUrl = values.imageUrl.trim();
-  const previewUrl = imageUrl && !errors.imageUrl && isValidUrl(imageUrl) ? imageUrl : '';
+  const previewUrl = imageUrl && !errors.imageUrl && isValidImageUrl(imageUrl) ? imageUrl : '';
 
   function getError(name) {
     return touched[name] || isSubmitAttempted ? errors[name] : '';

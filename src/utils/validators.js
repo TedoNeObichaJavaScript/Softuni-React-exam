@@ -3,6 +3,7 @@ import { COMMENT_MAX_LENGTH, DESCRIPTION_MAX_LENGTH, DIFFICULTIES } from './cons
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const USERNAME_PATTERN = /^[A-Za-z0-9_]+$/;
 const HTTP_PREFIX_PATTERN = /^https?:\/\//i;
+const SITE_IMAGE_PATTERN = /^\/images\/[\w/.-]+\.(jpe?g|png|webp)$/i;
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const POSITIVE_ID_PATTERN = /^[1-9]\d{0,17}$/;
 
@@ -56,6 +57,10 @@ export function isValidUrl(value) {
   } catch {
     return false;
   }
+}
+
+export function isValidImageUrl(value) {
+  return isValidUrl(value) || SITE_IMAGE_PATTERN.test(toText(value));
 }
 
 export function isUuid(value) {
@@ -112,7 +117,7 @@ function checkImageUrl(imageUrl) {
   if (text.length > IMAGE_URL_MAX_LENGTH) {
     return `Image URL can be at most ${IMAGE_URL_MAX_LENGTH} characters.`;
   }
-  if (!isValidUrl(text)) return 'Enter a valid link that starts with http:// or https://.';
+  if (!isValidImageUrl(text)) return 'Enter a valid link that starts with http:// or https://.';
   return '';
 }
 

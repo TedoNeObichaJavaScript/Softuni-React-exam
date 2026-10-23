@@ -41,8 +41,8 @@ The backend is Supabase (hosted Postgres and Auth), so there is nothing extra to
 ### Install
 
 ```bash
-git clone <this repository url>
-cd sofutnireact
+git clone https://github.com/TedoNeObichaJavaScript/Softuni-React-exam.git
+cd Softuni-React-exam
 npm install
 ```
 

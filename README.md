@@ -59,7 +59,7 @@ Only the project URL and the publishable key go here. Never put a secret or serv
 
 1. Open the SQL editor in your Supabase project and run `supabase/schema.sql`. It creates the tables, the constraints, the indexes and the trigger that creates a profile for every new user.
 2. Run `supabase/policies.sql` after it. It sets the table privileges and the Row Level Security policies.
-3. Optional: to get some sample trails, first register a user in the app. Then open `supabase/seed.sql`, replace the `your_username` placeholder with that username and run it in the SQL editor.
+3. Optional: to get 8 sample trails with real photos, first register a user in the app. Then open `supabase/seed.sql`, replace the `your_username` placeholder with that username and run it in the SQL editor. The photos are served by the app itself from `public/images/trails`.
 4. In Authentication, Providers, make sure the Email provider is enabled.
 5. Decide about "Confirm email" (Authentication, Sign In / Providers, Email):
    * **On:** after registering, the user is sent to the login page with a message to check their inbox. They can only log in after clicking the link in the email.
@@ -109,10 +109,25 @@ src/
   pages/        one folder per route (Home, Catalog, TrailDetails, CreateTrail, ...)
   utils/        validators, constants, formatting, trail form helpers
 supabase/       schema.sql, policies.sql, seed.sql
-public/         favicon and the Netlify rewrite file
+public/         favicon, trail photos (images/trails) and the Netlify rewrite file
 ```
 
 More detail on how the pieces fit together is in [ARCHITECTURE.md](ARCHITECTURE.md).
+
+## Photo credits
+
+The photos of the sample trails come from Wikimedia Commons. I resized and compressed them for the web, otherwise they are unchanged.
+
+| Photo | Author | License |
+|:-|:-|:-|
+| [Seven Rila Lakes](https://commons.wikimedia.org/wiki/File:Pogled_kum_ezerata_ot_biloto.JPG) | Senior maloney | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
+| [Musala](https://commons.wikimedia.org/wiki/File:Musala-celek.JPG) | František Rochovanský (Rochovaf) | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) |
+| [Cherni Vrah](https://commons.wikimedia.org/wiki/File:Cherni_Vrah_Vitosha_07.jpg) | Иван | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
+| [Vihren](https://commons.wikimedia.org/wiki/File:Vihren,_Pirin_National_Park_01.JPG) | Спасимир | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
+| [Boyana Waterfall](https://commons.wikimedia.org/wiki/File:Boyana_falls.jpg) | Mrejorix | Public domain |
+| [Krushuna Falls](https://commons.wikimedia.org/wiki/File:Krushuna_waterfalls_061.jpg) | Vislupus | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
+| [Trigrad Gorge](https://commons.wikimedia.org/wiki/File:Trigrad_Gorge_1.jpg) | Borislav krustev | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
+| [Botev peak](https://commons.wikimedia.org/wiki/File:Below_Botev_peak.jpg) | Derbeth | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 
 # Functional Guide
 
@@ -268,7 +283,7 @@ All inputs are controlled (`value` and `onChange`). Forms use `noValidate` and c
 | Elevation gain | required; a whole number from 0 to 5000 m |
 | Duration | required; a number from 0.1 to 72 hours |
 | Description | required; 20 to 2000 characters |
-| Image URL | optional; if present it must start with http:// or https://, be a valid URL, and be at most 500 characters |
+| Image URL | optional; if present it must be a valid http:// or https:// link or a photo path from the site (`/images/...` ending in .jpg, .png or .webp), at most 500 characters |
 | Comment | required after trimming; at most 500 characters |
 
 The field with the most rules is the password: required, minimum 8, maximum 72, and a letter plus a number. The same limits exist as `check` constraints in `supabase/schema.sql`, so the database enforces them even if the form is bypassed.

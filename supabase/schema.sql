@@ -1,5 +1,3 @@
-/* Trailbook database schema. Run this first, then policies.sql. */
-
 create table if not exists public.profiles (
   id uuid primary key references auth.users (id) on delete cascade,
   username text not null check (username ~ '^[A-Za-z0-9_]{3,20}$'),

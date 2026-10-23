@@ -1,8 +1,3 @@
-/*
-  Sample trails for a fresh database. Register an account in the app first,
-  replace your_username below with that username and run this in the SQL editor.
-*/
-
 insert into public.trails (
   title,
   region,

@@ -1,5 +1,3 @@
-/* Table privileges and row level security policies. Run this after schema.sql. */
-
 revoke all on public.profiles, public.trails, public.comments, public.likes from anon, authenticated;
 
 grant usage on schema public to anon, authenticated;
@@ -9,7 +7,6 @@ grant update (title, region, difficulty, distance_km, elevation_gain_m, duration
   on public.trails to authenticated;
 grant insert, delete on public.comments, public.likes to authenticated;
 
-/* Profiles are created by the signup trigger, so clients can only read them. */
 drop policy if exists profiles_read on public.profiles;
 create policy profiles_read on public.profiles
   for select to anon, authenticated
@@ -59,7 +56,6 @@ create policy likes_read on public.likes
   for select to anon, authenticated
   using (true);
 
-/* Users cannot like their own trails. */
 drop policy if exists likes_create on public.likes;
 create policy likes_create on public.likes
   for insert to authenticated

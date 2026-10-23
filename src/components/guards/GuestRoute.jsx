@@ -6,7 +6,6 @@ export default function GuestRoute() {
   const location = useLocation();
 
   if (isAuthenticated) {
-    // After logging in from a protected page, send the user back there.
     return <Navigate to={location.state?.from ?? '/trails'} replace />;
   }
 

@@ -2,11 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 
 const INITIAL_RESULT = { fetcher: null, version: 0, data: null, error: null };
 
-/*
- * The result remembers which fetcher and version produced it, so loading is
- * derived (result does not match the current request yet) instead of being
- * set inside the effect.
- */
 export function useFetch(fetcher) {
   const [version, setVersion] = useState(0);
   const [result, setResult] = useState(INITIAL_RESULT);

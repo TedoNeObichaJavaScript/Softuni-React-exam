@@ -21,7 +21,6 @@ export default function CreateTrail() {
   }
 
   function handleCancel() {
-    // idx is the router's history position. At 0 (bookmark, login redirect) going back leaves the site.
     if (window.history.state?.idx > 0) {
       navigate(-1);
     } else {

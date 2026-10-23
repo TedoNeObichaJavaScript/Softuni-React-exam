@@ -2,8 +2,6 @@
   padding-bottom: 80px;
 }
 
-/* Hero */
-
 .home-hero {
   display: grid;
   gap: 36px;
@@ -95,13 +93,9 @@
   }
 }
 
-/* Sections */
-
 .home-section + .home-section {
   margin-top: 72px;
 }
-
-/* How it works */
 
 .home-steps {
   display: grid;

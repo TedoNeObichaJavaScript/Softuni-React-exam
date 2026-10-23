@@ -12,7 +12,6 @@ function toLikeError(error) {
   if (error.code === UNIQUE_VIOLATION) {
     return new ApiError('You already liked this trail.', error.status, error.code);
   }
-  /* 403 means the user is logged in, so the only policy left to break is liking your own trail. */
   if (error.code === POLICY_VIOLATION && error.status === 403) {
     return new ApiError('You cannot like your own trail.', error.status, error.code);
   }

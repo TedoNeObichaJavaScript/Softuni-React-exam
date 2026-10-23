@@ -47,7 +47,6 @@ export default function HeroArt({ className }) {
         strokeLinecap="round"
       />
 
-      {/* Far range with snow caps */}
       <path
         d="M0 280 L60 230 L105 255 L180 160 L235 215 L285 185 L350 240 L430 150 L500 210 L560 180 V460 H0 Z"
         fill="#c3dacc"
@@ -55,7 +54,6 @@ export default function HeroArt({ className }) {
       <path d="M180 160 L162.6 182 L171 177 L180 186 L189 177 L200 180 Z" fill="#f4f7f3" />
       <path d="M430 150 L410.5 172 L420 167 L429 176 L440 166 L453 170 Z" fill="#f4f7f3" />
 
-      {/* Middle range, the trail ends on its highest peak */}
       <path
         d="M0 330 L70 285 L130 310 L215 235 L300 315 L360 280 L440 330 L500 300 L560 325 V460 H0 Z"
         fill="#8db69f"

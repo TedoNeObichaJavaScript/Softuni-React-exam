@@ -2,7 +2,6 @@ import { ApiError, request } from './request';
 import { DIFFICULTIES } from '../utils/constants';
 import { isPositiveId, isUuid } from '../utils/validators';
 
-/* likes links trails and profiles a second time, so the author embed needs the FK name. */
 export const TRAIL_SELECT = '*,author:profiles!trails_owner_id_fkey(id,username),likes(owner_id),comments(id)';
 
 const TRAILS_PATH = '/rest/v1/trails';
@@ -33,7 +32,6 @@ function toSortOrder(sort) {
   return Object.hasOwn(SORT_ORDERS, sort) ? SORT_ORDERS[sort] : SORT_ORDERS.newest;
 }
 
-/* These characters have a meaning inside PostgREST filters, so they are dropped from the search. */
 function sanitizeSearch(search) {
   return String(search ?? '').replace(/[,()"*\\:%]/g, ' ').trim();
 }

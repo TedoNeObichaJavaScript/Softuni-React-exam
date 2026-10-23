@@ -23,8 +23,9 @@ function writeStoredSession(session) {
     } else {
       localStorage.removeItem(STORAGE_KEY);
     }
+    return true;
   } catch {
-    /* Storage can be blocked (private mode). The session still works for this tab. */
+    return false;
   }
 }
 
@@ -32,7 +33,6 @@ function isExpiringSoon(session) {
   return session.expiresAt - Date.now() < REFRESH_MARGIN_MS;
 }
 
-/* A 4xx answer means the refresh token is no longer valid. No connection, 429 and 5xx are temporary. */
 function isRejectedRefresh(error) {
   return error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 429;
 }
@@ -56,7 +56,6 @@ export default function AuthProvider({ children }) {
     if (pendingRefreshRef.current) return pendingRefreshRef.current;
 
     const { refreshToken } = sessionRef.current;
-    /* The user can log out (here or in another tab) while the request runs, so check again after it. */
     const isStillCurrent = () => sessionRef.current?.refreshToken === refreshToken;
 
     const pending = refreshSession(refreshToken)
@@ -123,11 +122,7 @@ export default function AuthProvider({ children }) {
     applySession(null);
     if (!currentSession) return;
 
-    try {
-      await signOut(currentSession.accessToken);
-    } catch {
-      /* The local session is already gone, a failed server logout changes nothing for the user. */
-    }
+    await signOut(currentSession.accessToken).catch(() => null);
   }, [applySession]);
 
   const user = session?.user ?? null;

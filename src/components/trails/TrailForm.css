@@ -22,8 +22,6 @@
   column-gap: 16px;
 }
 
-/* Difficulty segmented control built on native radios */
-
 .trail-form-fieldset {
   min-width: 0;
   margin: 0 0 18px;
@@ -117,8 +115,6 @@
 .trail-form-segment-input:checked + .trail-form-segment-box .trail-form-segment-hint {
   color: inherit;
 }
-
-/* Description counter and image preview */
 
 .trail-form-field-footer {
   display: flex;

@@ -27,8 +27,6 @@ export default function Header() {
 
   const handleLogout = () => {
     closeMenu();
-    // Navigation runs as a transition. Clearing the session in the same one keeps
-    // private pages from redirecting to /login before the user reaches home.
     startTransition(() => {
       navigate('/');
       logout();

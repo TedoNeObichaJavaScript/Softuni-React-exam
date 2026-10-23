@@ -48,7 +48,6 @@ export default function Catalog() {
   const debouncedSearch = useDebounce(searchText, 400);
   const lastDebounced = useRef(debouncedSearch);
 
-  // q can also change from outside (back button, a link with ?q=), so the input follows it
   if (syncedQuery !== q) {
     setSyncedQuery(q);
     if (q !== debouncedSearch.trim()) {

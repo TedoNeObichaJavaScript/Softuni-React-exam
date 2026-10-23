@@ -77,8 +77,6 @@
   text-decoration: underline;
 }
 
-/* Actions bar */
-
 .trail-details-actions {
   display: flex;
   flex-wrap: wrap;
@@ -117,8 +115,6 @@
   display: flex;
   gap: 8px;
 }
-
-/* Stats and description */
 
 .trail-details-stats {
   margin-top: 32px;

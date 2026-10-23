@@ -15,7 +15,6 @@ const MESSAGES_BY_CODE = {
   over_request_rate_limit: TOO_MANY_ATTEMPTS,
 };
 
-/* Older auth servers send no error_code, so the message text is checked as well. */
 const MESSAGES_BY_TEXT = [
   ['invalid login credentials', WRONG_CREDENTIALS],
   ['email not confirmed', EMAIL_NOT_CONFIRMED],
@@ -98,7 +97,6 @@ export async function signOut(accessToken) {
       token: accessToken,
     });
   } catch (error) {
-    /* An expired or revoked token means the session is already gone on the server. */
     const isSessionGone = error instanceof ApiError && (error.status === 401 || error.status === 403);
     if (!isSessionGone) throw error;
   }

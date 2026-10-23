@@ -37,7 +37,6 @@ function Toast({ toast, onDismiss }) {
 
 export default function Toasts({ toasts, onDismiss }) {
   return (
-    // the wrapper is always rendered so screen readers pick up new toasts
     <div className="toasts" aria-live="polite">
       {toasts.map((toast) => (
         <Toast key={toast.id} toast={toast} onDismiss={onDismiss} />

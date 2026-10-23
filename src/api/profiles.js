@@ -28,6 +28,5 @@ export async function isUsernameTaken(username, signal) {
     signal,
   });
 
-  /* ilike treats _ as a wildcard, so the exact match is checked here. */
   return (data ?? []).some((profile) => profile.username.toLowerCase() === wanted);
 }

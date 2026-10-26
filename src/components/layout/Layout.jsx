@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import Header from './Header';
 import Footer from './Footer';
+import ErrorBoundary from '../ui/ErrorBoundary';
 import './Layout.css';
 
 export default function Layout() {
@@ -18,7 +19,9 @@ export default function Layout() {
       </a>
       <Header />
       <main className="layout-main" id="main-content">
-        <Outlet />
+        <ErrorBoundary key={pathname}>
+          <Outlet />
+        </ErrorBoundary>
       </main>
       <Footer />
     </div>

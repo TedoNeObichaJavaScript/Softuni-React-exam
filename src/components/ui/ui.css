@@ -74,6 +74,19 @@
   font-size: 0.95rem;
 }
 
+.error-boundary {
+  border: 1px solid #e2e0d8;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.error-boundary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
 .empty-state {
   max-width: none;
   border: 1px dashed #d6d3c8;

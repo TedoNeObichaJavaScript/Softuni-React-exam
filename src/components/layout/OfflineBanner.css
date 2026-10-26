@@ -1,0 +1,27 @@
+.offline-banner {
+  position: sticky;
+  top: 65px;
+  z-index: 40;
+  background: #fcefd4;
+  border-bottom: 1px solid #f2d9a6;
+  color: #5f3d00;
+}
+
+.offline-banner-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.offline-banner-inner svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.offline-banner-inner p {
+  margin: 0;
+}

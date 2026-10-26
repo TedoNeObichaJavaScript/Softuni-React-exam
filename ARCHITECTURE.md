@@ -11,7 +11,7 @@ Browser (Vite + React 19 single page app)
       NotificationProvider   toasts, notify()
         AuthProvider         session, login, logout, getAccessToken()
           App                Routes
-            Layout (Header, Outlet, Footer)
+            Layout (Header, OfflineBanner, ErrorBoundary around Outlet, Footer)
               pages -> components -> hooks (useFetch, useAuth, ...)
                                         |
                                   src/api/*.js
@@ -27,11 +27,12 @@ Supabase:  /auth/v1/*  (Auth)     /rest/v1/*  (PostgREST on Postgres, RLS)
 |:-|:-|
 | `src/api` | The only place that knows about URLs and headers. `request.js` is the fetch wrapper, the other files map one resource each to REST calls and return plain objects. |
 | `src/contexts` | `AuthProvider` and `NotificationProvider`, with the context objects in separate `.js` files so component files only export components. |
-| `src/hooks` | `useAuth` and `useNotify` (context readers), `useFetch`, `useDebounce`, `useDocumentTitle`. |
+| `src/hooks` | `useAuth` and `useNotify` (context readers), `useFetch`, `useDebounce`, `useDocumentTitle`, `useOnlineStatus`. |
 | `src/components` | Shared pieces grouped by feature: layout, guards, trails, comments, ui. |
 | `src/pages` | One folder per route. Pages own the data loading and decide what to render (loading, error, empty, data). |
 | `src/utils` | Validators, constants, formatters and helpers that convert between form values and database payloads. |
 | `supabase` | SQL for the schema, the policies and optional sample data. |
+| `public/images/trails` | Photos for the sample trails, served by the app itself. `image_url` accepts a normal link or a path like `/images/trails/musala.jpg`. |
 
 ## Data flow
 
@@ -68,6 +69,8 @@ Tables: `profiles` (id = auth user id), `trails`, `comments`, `likes` (composite
 * The api files translate known codes into friendly text (wrong password, unique violation, policy violation, check violation). `request.js` has fallback messages by status and one message for network failures.
 * Pages show `Spinner`, `ErrorMessage` with a retry button, or `EmptyState`. Actions that fail show an error toast. Optimistic updates (likes, comment delete) are rolled back.
 * Invalid ids in the URL are rejected before any request is sent.
+* `ErrorBoundary` in `Layout` catches unexpected render errors in a page and shows a fallback with Reload and Go home. It is keyed by the path, so navigating resets it.
+* `OfflineBanner` uses `useOnlineStatus` to tell the user when the connection is gone, before their next request fails.
 
 ## Styling conventions
 

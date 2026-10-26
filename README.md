@@ -17,6 +17,7 @@ The backend is Supabase (hosted Postgres and Auth), so there is nothing extra to
 * "My trails" page with a tab for trails I added and a tab for trails I liked
 * Public hiker profile pages
 * Form validation with clear messages, loading spinners, error messages with a retry button, empty states and a 404 page
+* A banner when the connection drops, and an error boundary so a crash never leaves a blank page
 
 ## Tech stack
 
@@ -57,11 +58,13 @@ Only the project URL and the publishable key go here. Never put a secret or serv
 
 ### Supabase setup
 
+When you create the project, keep **Enable Data API** on. **Automatically expose new tables** can be turned off, because `policies.sql` grants exactly what each table needs.
+
 1. Open the SQL editor in your Supabase project and run `supabase/schema.sql`. It creates the tables, the constraints, the indexes and the trigger that creates a profile for every new user.
 2. Run `supabase/policies.sql` after it. It sets the table privileges and the Row Level Security policies.
 3. Optional: to get 8 sample trails with real photos, first register a user in the app. Then open `supabase/seed.sql`, replace the `your_username` placeholder with that username and run it in the SQL editor. The photos are served by the app itself from `public/images/trails`.
-4. In Authentication, Providers, make sure the Email provider is enabled.
-5. Decide about "Confirm email" (Authentication, Sign In / Providers, Email):
+4. In Authentication, Sign In / Providers, make sure the Email provider is enabled.
+5. Decide about **Confirm email** (Authentication, Sign In / Providers, in the User Signups section). The live demo has it off:
    * **On:** after registering, the user is sent to the login page with a message to check their inbox. They can only log in after clicking the link in the email.
    * **Off:** registration returns a session straight away, so the user is logged in and sent to the catalog. This is the easiest option while developing.
 6. In Authentication, URL Configuration, set the Site URL to `http://localhost:5173` for local work and add the same address to the Redirect URLs. When the app is deployed, change the Site URL to the production address (see Deployment).
@@ -100,11 +103,11 @@ src/
   components/
     comments/   comment section, form and single comment
     guards/     PrivateRoute and GuestRoute
-    layout/     Layout, Header, Footer
+    layout/     Layout, Header, Footer, OfflineBanner
     trails/     trail card, grid, form, filters, like button, badges, images
-    ui/         Spinner, ErrorMessage, EmptyState, TextField, toasts
+    ui/         Spinner, ErrorMessage, EmptyState, TextField, ErrorBoundary, toasts
   contexts/     AuthProvider and NotificationProvider (plus their context objects)
-  hooks/        useAuth, useFetch, useDebounce, useDocumentTitle, useNotify
+  hooks/        useAuth, useFetch, useDebounce, useDocumentTitle, useNotify, useOnlineStatus
   pages/        one folder per route (Home, Catalog, TrailDetails, CreateTrail, ...)
   utils/        validators, constants, formatting, trail form helpers
 supabase/       schema.sql, policies.sql, seed.sql
@@ -297,9 +300,11 @@ The field with the most rules is the password: required, minimum 8, maximum 72, 
 * **useMemo:** the Context value in `AuthProvider`.
 * **useRef:** the current session and the pending refresh promise in `AuthProvider`, and the id counter for toasts.
 * **useParams, useSearchParams, useNavigate, useLocation:** from react-router, in pages and guards.
-* **Custom hooks:** `useAuth`, `useFetch`, `useDebounce`, `useDocumentTitle`, `useNotify`.
+* **useSyncExternalStore:** `useOnlineStatus` reads `navigator.onLine` and subscribes to the browser's `online` and `offline` events.
+* **Custom hooks:** `useAuth`, `useFetch`, `useDebounce`, `useDocumentTitle`, `useNotify`, `useOnlineStatus`.
+* **Class lifecycle methods:** `ErrorBoundary` is the one class component, because catching render errors still needs `getDerivedStateFromError` and `componentDidCatch`.
 
-**Mount / update / unmount example (`useFetch`):** when a page mounts, the effect creates an `AbortController` and calls the fetcher with its signal. When the fetcher changes (for example the user picks another difficulty in the catalog, or `trailId` changes), the effect cleanup aborts the previous request and a new one starts, so an old slow response can never overwrite a newer one. When the page unmounts, the cleanup aborts the request in flight and no state is set afterwards. The `Toast` component works the same way: it starts a 4.5 second timer when it mounts and clears it on unmount, and the `AuthProvider` adds a `storage` listener on mount and removes it on unmount.
+**Mount / update / unmount example (`useFetch`):** when a page mounts, the effect creates an `AbortController` and calls the fetcher with its signal. When the fetcher changes (for example the user picks another difficulty in the catalog, or `trailId` changes), the effect cleanup aborts the previous request and a new one starts, so an old slow response can never overwrite a newer one. When the page unmounts, the cleanup aborts the request in flight and no state is set afterwards. The `Toast` component works the same way: it starts a 4.5 second timer when it mounts and clears it on unmount, and the `AuthProvider` adds a `storage` listener on mount and removes it on unmount. `useOnlineStatus` does the same with the `online` and `offline` events, which is what shows and hides the offline banner.
 
 ### Context API
 
@@ -337,6 +342,8 @@ Plain CSS, no library. `src/index.css` has the global styles (reset, fonts, page
 * Pages show a `Spinner` while loading and an `ErrorMessage` with a retry button when loading fails. Aborted requests are ignored.
 * Failed actions (like, comment, delete, save) show an error toast or message. Optimistic changes for likes and comment deletes are rolled back.
 * If the Supabase settings are missing from `.env.local`, the app says so instead of failing silently.
+* When the connection drops, a banner under the header says so and explains that changes will not be saved. It goes away by itself when the connection is back.
+* An error boundary wraps the page content. If something unexpected breaks while rendering, the user sees a message with Reload and Go home buttons instead of a blank page, and the header keeps working. Moving to another page resets it.
 * Database constraint errors (invalid trail data, duplicate like, liking your own trail, deleting someone else's row) are translated into specific messages.
 
 ### Empty or missing data

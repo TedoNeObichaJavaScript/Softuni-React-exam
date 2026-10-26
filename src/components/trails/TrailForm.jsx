@@ -92,7 +92,7 @@ export default function TrailForm({ initialValues, submitLabel, onSubmit, onCanc
   }
 
   const difficultyError = getError('difficulty');
-  const descriptionLength = values.description.length;
+  const descriptionLength = values.description.trim().length;
 
   return (
     <form className="trail-form" noValidate onSubmit={handleSubmit}>

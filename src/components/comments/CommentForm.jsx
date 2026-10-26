@@ -14,7 +14,8 @@ export default function CommentForm({ trailId, onCreated }) {
   const [serverError, setServerError] = useState('');
 
   const validationError = validateComment(body);
-  const isOverLimit = body.length > COMMENT_MAX_LENGTH;
+  const bodyLength = body.trim().length;
+  const isOverLimit = bodyLength > COMMENT_MAX_LENGTH;
   const error = isSubmitAttempted || isOverLimit ? validationError : '';
   const shownError = error || serverError;
 
@@ -67,7 +68,7 @@ export default function CommentForm({ trailId, onCreated }) {
             <p id="comment-body-error" className="field-error" role="alert">{shownError}</p>
           )}
           <p id="comment-body-count" className={isOverLimit ? 'comment-form-count is-over' : 'comment-form-count'}>
-            {body.length}/{COMMENT_MAX_LENGTH}
+            {bodyLength}/{COMMENT_MAX_LENGTH}
           </p>
         </div>
         <button type="submit" className="btn btn-primary" disabled={isPosting}>

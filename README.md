@@ -2,7 +2,7 @@
 
 Trailbook is a community guide to hiking trails, mostly in the Bulgarian mountains (Rila, Pirin, Vitosha, the Rhodopes, Stara Planina and others). Anyone can browse and search the trails. After signing up, a hiker can add their own routes, edit or delete them, like trails from other people and leave comments. I built it as my React exam project with Vite, React 19 and react-router 7, and the data lives in Supabase.
 
-**Live demo:** https://YOUR-DEPLOY-URL
+**Live demo:** https://softuni-react-exam-one.vercel.app
 
 The backend is Supabase (hosted Postgres and Auth), so there is nothing extra to deploy. The app talks to it with plain `fetch` calls to its REST endpoints.
 
@@ -89,7 +89,6 @@ I deploy it as a static site on Netlify or Vercel.
 3. Add the two environment variables on the host: `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`. They are read at build time, so redeploy after changing them.
 4. The single page app rewrite is already in the repo: `public/_redirects` for Netlify (`/*    /index.html   200`) and `vercel.json` for Vercel. Without it, refreshing on a route like `/trails/5` would give a 404 from the host.
 5. In Supabase, Authentication, URL Configuration, set the Site URL to the production address and add it to the Redirect URLs. Confirmation emails use this address.
-6. Replace `YOUR-DEPLOY-URL` at the top of this file with the real address.
 
 A free Supabase project pauses after about a week without activity. Before the project is reviewed, open the Supabase dashboard and restore it if it is paused, otherwise every request from the app will fail.
 

@@ -33,6 +33,64 @@ const LEVELS = [
   },
 ];
 
+const PHOTO_CREDITS = [
+  {
+    place: 'Seven Rila Lakes',
+    fileUrl: 'https://commons.wikimedia.org/wiki/File:Pogled_kum_ezerata_ot_biloto.JPG',
+    author: 'Senior maloney',
+    license: 'CC BY-SA 3.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+  },
+  {
+    place: 'Musala',
+    fileUrl: 'https://commons.wikimedia.org/wiki/File:Musala-celek.JPG',
+    author: 'František Rochovanský (Rochovaf)',
+    license: 'CC BY 3.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/3.0/',
+  },
+  {
+    place: 'Cherni Vrah',
+    fileUrl: 'https://commons.wikimedia.org/wiki/File:Cherni_Vrah_Vitosha_07.jpg',
+    author: 'Иван',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  {
+    place: 'Vihren',
+    fileUrl: 'https://commons.wikimedia.org/wiki/File:Vihren,_Pirin_National_Park_01.JPG',
+    author: 'Спасимир',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  {
+    place: 'Boyana Waterfall',
+    fileUrl: 'https://commons.wikimedia.org/wiki/File:Boyana_falls.jpg',
+    author: 'Mrejorix',
+    license: 'Public domain',
+  },
+  {
+    place: 'Krushuna Falls',
+    fileUrl: 'https://commons.wikimedia.org/wiki/File:Krushuna_waterfalls_061.jpg',
+    author: 'Vislupus',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  {
+    place: 'Trigrad Gorge',
+    fileUrl: 'https://commons.wikimedia.org/wiki/File:Trigrad_Gorge_1.jpg',
+    author: 'Borislav krustev',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  {
+    place: 'Botev peak',
+    fileUrl: 'https://commons.wikimedia.org/wiki/File:Below_Botev_peak.jpg',
+    author: 'Derbeth',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+  },
+];
+
 function FeatureList({ title, items }) {
   return (
     <div className="about-features">
@@ -108,6 +166,28 @@ export default function About() {
             Mountain Rescue Service.
           </span>
         </p>
+      </section>
+
+      <section className="about-section" aria-labelledby="about-credits-title">
+        <h2 id="about-credits-title">Photo credits</h2>
+        <p>The photos of the sample trails are from Wikimedia Commons.</p>
+        <ul className="about-credits">
+          {PHOTO_CREDITS.map(({ place, fileUrl, author, license, licenseUrl }) => (
+            <li key={place} className="about-credit">
+              <a className="about-credit-place" href={fileUrl} target="_blank" rel="noreferrer">
+                {place}
+              </a>
+              <span className="about-credit-author">{author}</span>
+              <span className="about-credit-license">
+                {licenseUrl ? (
+                  <a href={licenseUrl} target="_blank" rel="noreferrer">{license}</a>
+                ) : (
+                  license
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
   );
